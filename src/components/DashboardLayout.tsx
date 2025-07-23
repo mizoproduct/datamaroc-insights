@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
   LayoutDashboard, 
@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import DashboardHeader from './DashboardHeader';
 
 const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/', active: true },
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
   { icon: Map, label: 'Job Map', href: '/map' },
   { icon: TrendingUp, label: 'Skills', href: '/skills' },
   { icon: Building2, label: 'Companies', href: '/companies' },
@@ -27,6 +27,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="min-h-screen bg-background">
@@ -66,21 +67,24 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
           {/* Navigation */}
           <nav className="flex-1 space-y-2 p-4">
-            {sidebarItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent",
-                  item.active
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                <span>{item.label}</span>
-              </a>
-            ))}
+            {sidebarItems.map((item) => {
+              const isActive = location.pathname === item.href;
+              return (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={cn(
+                    "flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent",
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Footer */}
@@ -99,8 +103,10 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <DashboardHeader onMenuClick={() => setSidebarOpen(true)} />
         
         {/* Page content */}
-        <main className="p-6">
-          {children}
+        <main className="p-4 sm:p-6">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>

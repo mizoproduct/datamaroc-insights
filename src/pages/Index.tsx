@@ -2,7 +2,7 @@ import React from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import FilterRow from '@/components/FilterRow';
 import StatsCards from '@/components/StatsCards';
-import MoroccoMap from '@/components/MoroccoMap';
+import MapboxMap from '@/components/MapboxMap';
 import SkillsChart from '@/components/SkillsChart';
 import CompanyTable from '@/components/CompanyTable';
 
@@ -28,16 +28,16 @@ const Index = () => {
       </div>
 
       {/* Main Dashboard Grid */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* Left Column */}
-        <div className="space-y-6">
-          <MoroccoMap />
-          <CompanyTable />
+      <div className="space-y-6">
+        {/* First Row: Map and Skills Chart */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <MapboxMap />
+          <SkillsChart />
         </div>
 
-        {/* Right Column */}
-        <div className="space-y-6">
-          <SkillsChart />
+        {/* Second Row: Company Table */}
+        <div>
+          <CompanyTable />
         </div>
       </div>
     </DashboardLayout>
