@@ -61,7 +61,6 @@ const FilterRow = ({ onFiltersChange }: FilterRowProps) => {
             <SelectValue placeholder="All job titles" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All job titles</SelectItem>
             {uniqueJobTitles.map((title) => (
               <SelectItem key={title} value={title.toLowerCase().replace(/\s+/g, '_')}>
                 {title}
@@ -79,7 +78,6 @@ const FilterRow = ({ onFiltersChange }: FilterRowProps) => {
             <SelectValue placeholder="All levels" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All levels</SelectItem>
             {uniqueSeniorityLevels.map((level) => (
               <SelectItem key={level} value={level.toLowerCase()}>
                 {level}
@@ -97,7 +95,6 @@ const FilterRow = ({ onFiltersChange }: FilterRowProps) => {
             <SelectValue placeholder="All types" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All types</SelectItem>
             {uniqueJobTypes.map((type) => (
               <SelectItem key={type} value={type}>
                 {type}
